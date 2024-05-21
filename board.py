@@ -6,3 +6,6 @@ class Board:
             None, None, None,
             None, None, None,
         ]
+
+    def place_marker(self, marker, position):
+        self.positions[position - 1] = marker
