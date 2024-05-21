@@ -29,3 +29,6 @@ class Board:
                 marker = self.positions[a]
                 break
         return marker
+
+    def is_full(self):
+        return all(p is not None for p in self.positions)
