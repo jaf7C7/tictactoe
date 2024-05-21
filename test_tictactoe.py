@@ -1,5 +1,7 @@
 from unittest import TestCase
 from tictactoe import Tictactoe
+from player import Player
+from board import Board
 
 
 class TestTictactoe(TestCase):
@@ -9,12 +11,9 @@ class TestTictactoe(TestCase):
 
     def test_has_two_players(self):
         self.assertEqual(2, len(self.tictactoe.players))
-
-    def test_players_implement_select_position(self):
         self.assertTrue(
             all(
-                hasattr(player, 'select_position')
-                for player in self.tictactoe.players
+                isinstance(player, Player) for player in self.tictactoe.players
             )
         )
 
