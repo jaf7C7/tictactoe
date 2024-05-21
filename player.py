@@ -8,7 +8,4 @@ class Player:
         self.marker = 'X' if self.is_human else 'O'
 
     def select_position(self):
-        if self.is_human:
-            return input()
-        else:
-            return randint(1, 9)
+        return input() if self.is_human else randint(1, 9)
