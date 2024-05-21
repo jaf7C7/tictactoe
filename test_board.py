@@ -70,3 +70,18 @@ class TestBoard(TestCase):
         ]
         self.assertIs(None, self.board.winning_marker())
 
+    def test_is_full_if_full_board(self):
+        self.board.positions = [
+            'O', 'O', 'X',
+            'X', 'X', 'O',
+            'O', 'O', 'X',
+        ]
+        self.assertTrue(self.board.is_full())
+
+    def test_is_full_if_not_full_board(self):
+        self.board.positions = [
+            'O', 'O', 'X',
+            None, 'X', 'O',
+            'O', 'O', 'X',
+        ]
+        self.assertFalse(self.board.is_full())
