@@ -10,11 +10,11 @@ class TestBoard(TestCase):
     def test_has_nine_positions(self):
         self.assertTrue(9, len(self.board.positions))
 
-    def test_place_marker(self):
+    def test_place_marker_marks_correct_position(self):
         self.board.place_marker('X', 3)
         self.assertEqual('X', self.board.positions[2])
 
-    def test_winning_marker(self):
+    def test_winning_marker_if_winner(self):
         for positions in (
             [
                 'X', 'X', 'X',
@@ -62,7 +62,7 @@ class TestBoard(TestCase):
                 'X', self.board.winning_marker(), msg=self.board.positions
             )
 
-    def test_winning_marker_no_winner(self):
+    def test_winning_marker_if_no_winner(self):
         self.board.positions = [
             None, None, None,
             None, None, None,
