@@ -9,12 +9,25 @@ class Tictactoe:
         self.board = Board()
 
     def play(self):
+        self.display_message('Starting tictactoe...',)
+        self.display_board()
         while True:
-            if self.players[0].select_position() is None:
-                break
+            for player in self.players:
+                if player.is_human:
+                    self.display_message('Enter your selection: ', end='')
+                position = player.select_position()
+                if position is None:
+                    return
+                if not player.is_human:
+                    self.display_message(f"The computer selected `{position}'")
+                self.board.place_marker(player.marker, position)
+                self.display_board()
+                if self.board.winning_marker() is not None:
+                    self.display_message('You win!')
+                    return
 
-    def display_message(self, message):
-        print(message)
+    def display_message(self, message, **kwargs):
+        print(message, **kwargs)
 
     def display_board(self):
         template = (
@@ -22,6 +35,6 @@ class Tictactoe:
             '---+---+---\n'
             ' {} | {} | {} \n'
             '---+---+---\n'
-            ' {} | {} | {} \n'
+            ' {} | {} | {} '
         )
         self.display_message(template.format(*self.board.positions))

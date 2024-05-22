@@ -53,3 +53,51 @@ class TestTictactoe(TestCase):
     ):
         self.tictactoe.play()
         self.assertEqual(2, mock_selection.call_count)
+
+    @patch.object(
+        Player,
+        'select_position',
+        side_effect=[1, 4, 2, 5, 3, None]
+    )
+    def test_play(self, mock_selection, stdout):
+        self.tictactoe.play()
+        self.assertIn(
+            'Starting tictactoe...\n'
+            ' 1 | 2 | 3 \n'
+            '---+---+---\n'
+            ' 4 | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            'Enter your selection: '
+            ' X | 2 | 3 \n'
+            '---+---+---\n'
+            ' 4 | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            "The computer selected `4'\n"
+            ' X | 2 | 3 \n'
+            '---+---+---\n'
+            ' O | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            'Enter your selection: '
+            ' X | X | 3 \n'
+            '---+---+---\n'
+            ' O | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            "The computer selected `5'\n"
+            ' X | X | 3 \n'
+            '---+---+---\n'
+            ' O | O | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            'Enter your selection: '
+            ' X | X | X \n'
+            '---+---+---\n'
+            ' O | O | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+            'You win!\n',
+            stdout.getvalue()
+        )
