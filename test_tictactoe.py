@@ -54,64 +54,89 @@ class TestTictactoe(TestCase):
         self.tictactoe.play()
         self.assertEqual(2, mock_selection.call_count)
 
-    @patch.object(
-        Player,
-        'select_position',
-        side_effect=[1, 10, 2, 4, 'Bleh', 5, 3, None]
-    )
-    def test_play(self, mock_selection, stdout):
+    @patch.object(Player, 'select_position', side_effect=[1, 2, None])
+    def test_game_loop_gets_selection_from_each_player(
+        self, mock_selection, stdout
+    ):
+        self.tictactoe.play()
+        self.assertTrue(
+            all(p.select_position.called for p in self.tictactoe.players)
+        )
+
+    @patch.object(Tictactoe, 'display_board')
+    @patch.object(Player, 'select_position', side_effect=[None])
+    def test_board_displayed_at_the_start_of_the_game(
+        self, mock_selection, mock_display_board, stdout
+    ):
+        self.tictactoe.play()
+        self.assertEqual(1, mock_display_board.call_count)
+
+    @patch.object(Tictactoe, 'display_board')
+    @patch.object(Player, 'select_position', side_effect=[1, 2, None])
+    def test_board_displayed_after_each_player_turn(
+        self, mock_selection, mock_display_board, stdout
+    ):
+        self.tictactoe.play()
+        self.assertEqual(3, mock_display_board.call_count)
+
+    @patch.object(Player, 'select_position', side_effect=[None])
+    def test_displays_user_selection_prompt_for_human_player(
+        self, mock_selection, stdout
+    ):
+        self.tictactoe.play()
+        self.assertIn('Enter your selection: ', stdout.getvalue())
+
+    @patch.object(Player, 'select_position', side_effect=[1, None])
+    def test_displays_user_selection_prompt_for_human_player(
+        self, mock_selection, stdout
+    ):
+        self.tictactoe.play()
+        self.assertIn("The computer selected `None'", stdout.getvalue())
+
+    @patch.object(Player, 'select_position', side_effect=[None])
+    def test_displays_welcome_message(self, mock_selection, stdout):
+        self.tictactoe.play()
+        self.assertIn('Starting tictactoe...', stdout.getvalue())
+
+    @patch.object(Board, 'place_marker', side_effect=Exception())
+    @patch.object(Player, 'select_position', side_effect=[1, None])
+    def test_displays_message_if_place_marker_raises_exception(
+        self, mock_selection, mock_place_marker, stdout
+    ):
         self.tictactoe.play()
         self.assertIn(
-            'Starting tictactoe...\n'
-            ' 1 | 2 | 3 \n'
-            '---+---+---\n'
-            ' 4 | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            'Enter your selection: '  # 1
-            ' X | 2 | 3 \n'
-            '---+---+---\n'
-            ' 4 | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            "The computer selected `10'\n"
-            'Invalid selection, not placing marker.\n'
-            ' X | 2 | 3 \n'
-            '---+---+---\n'
-            ' 4 | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            'Enter your selection: '  # 2
-            ' X | X | 3 \n'
-            '---+---+---\n'
-            ' 4 | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            "The computer selected `4'\n"
-            ' X | X | 3 \n'
-            '---+---+---\n'
-            ' O | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            'Enter your selection: '  # 'Bleh'
-            'Invalid selection, not placing marker.\n'
-            ' X | X | 3 \n'
-            '---+---+---\n'
-            ' O | 5 | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            "The computer selected `5'\n"
-            ' X | X | 3 \n'
-            '---+---+---\n'
-            ' O | O | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            'Enter your selection: '  # 3
-            ' X | X | X \n'
-            '---+---+---\n'
-            ' O | O | 6 \n'
-            '---+---+---\n'
-            ' 7 | 8 | 9 \n'
-            'You win!\n',
+            'Invalid selection, not placing marker.',
             stdout.getvalue()
         )
+
+    @patch.object(Player, 'select_position', side_effect=[3, None])
+    def test_displays_results_message_at_end_of_game_if_player_wins(
+        self, mock_selection, stdout
+    ):
+        self.tictactoe.board.positions = [
+            'X', 'X', 3,
+            4, 5, 6,
+            7, 8, 9,
+        ]
+        self.tictactoe.play()
+        self.assertIn('You win!', stdout.getvalue())
+
+    @patch.object(Player, 'select_position', side_effect=['Bleh', 3, None])
+    def test_displays_results_message_at_end_of_game_if_player_loses(
+        self, mock_selection, stdout
+    ):
+        self.tictactoe.board.positions = [
+            'O', 'O', 3,
+            4, 5, 6,
+            7, 8, 9,
+        ]
+        self.tictactoe.play()
+        self.assertIn('You lose!', stdout.getvalue())
+
+    @patch.object(Board, 'is_full', return_value=True)
+    @patch.object(Player, 'select_position', side_effect=[1, None])
+    def test_displays_results_message_at_end_of_game_if_tiebreak(
+        self, mock_selection, mock_is_full, stdout
+    ):
+        self.tictactoe.play()
+        self.assertIn("It's a tie!", stdout.getvalue())

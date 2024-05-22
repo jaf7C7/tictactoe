@@ -16,10 +16,10 @@ class Tictactoe:
                 if player.is_human:
                     self.display_message('Enter your selection: ', end='')
                 position = player.select_position()
-                if position is None:
-                    return
                 if not player.is_human:
                     self.display_message(f"The computer selected `{position}'")
+                if position is None:
+                    return
                 try:
                     self.board.place_marker(player.marker, position)
                 except Exception:
@@ -27,9 +27,17 @@ class Tictactoe:
                         'Invalid selection, not placing marker.'
                     )
                 self.display_board()
-                if self.board.winning_marker() is not None:
+                winner = self.board.winning_marker()
+                if winner == 'X':
                     self.display_message('You win!')
-                    return
+                elif winner == 'O':
+                    self.display_message('You lose!')
+                elif winner is None:
+                    if self.board.is_full():
+                        self.display_message("It's a tie!")
+                    else:
+                        continue
+                return
 
     def display_message(self, message, **kwargs):
         print(message, **kwargs)
