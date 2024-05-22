@@ -2,9 +2,9 @@ class Board:
 
     def __init__(self):
         self.positions = [
-            None, None, None,
-            None, None, None,
-            None, None, None,
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9,
         ]
 
     def place_marker(self, marker, position):
@@ -23,7 +23,7 @@ class Board:
             (2, 4, 6),
         ):
             if (
-                self.positions[a] is not None
+                self.positions[a] in {'X', 'O'}
                 and self.positions[a] == self.positions[b] == self.positions[c]
             ):
                 marker = self.positions[a]
@@ -31,4 +31,4 @@ class Board:
         return marker
 
     def is_full(self):
-        return all(p is not None for p in self.positions)
+        return all(p in {'X', 'O'} for p in self.positions)

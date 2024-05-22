@@ -18,43 +18,43 @@ class TestBoard(TestCase):
         for positions in (
             [
                 'X', 'X', 'X',
-                None, None, None,
-                None, None, None,
+                4, 5, 6,
+                7, 8, 9,
             ],
             [
-                None, None, None,
+                1, 2, 3,
                 'X', 'X', 'X',
-                None, None, None,
+                7, 8, 9,
             ],
             [
-                None, None, None,
-                None, None, None,
+                1, 2, 3,
+                4, 5, 6,
                 'X', 'X', 'X',
             ],
             [
-                'X', None, None,
-                'X', None, None,
-                'X', None, None,
+                'X', 2, 3,
+                'X', 5, 6,
+                'X', 8, 9,
             ],
             [
-                None, 'X', None,
-                None, 'X', None,
-                None, 'X', None,
+                1, 'X', 3,
+                4, 'X', 6,
+                7, 'X', 9,
             ],
             [
-                None, None, 'X',
-                None, None, 'X',
-                None, None, 'X',
+                1, 2, 'X',
+                4, 5, 'X',
+                7, 8, 'X',
             ],
             [
-                'X', None, None,
-                None, 'X', None,
-                None, None, 'X',
+                'X', 2, 3,
+                4, 'X', 6,
+                7, 8, 'X',
             ],
             [
-                None, None, 'X',
-                None, 'X', None,
-                'X', None, None,
+                1, 2, 'X',
+                4, 'X', 6,
+                'X', 8, 9,
             ]
         ):
             self.board.positions = positions
@@ -64,8 +64,8 @@ class TestBoard(TestCase):
 
     def test_winning_marker_if_no_winner(self):
         self.board.positions = [
-            None, None, None,
-            None, None, None,
+            1, 2, 3,
+            4, 5, 6,
             'X', 'X', 'O',
         ]
         self.assertIs(None, self.board.winning_marker())
@@ -81,7 +81,7 @@ class TestBoard(TestCase):
     def test_is_full_if_not_full_board(self):
         self.board.positions = [
             'O', 'O', 'X',
-            None, 'X', 'O',
+            4, 'X', 'O',
             'O', 'O', 'X',
         ]
         self.assertFalse(self.board.is_full())

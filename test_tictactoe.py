@@ -28,9 +28,9 @@ class TestTictactoe(TestCase):
     @patch('tictactoe.print')
     def test_display_board(self, mock_print):
         self.tictactoe.board.positions = [
-            None,'X', None,
-            'O', None, None,
-            None, None, None,
+            1,'X', 3,
+            'O', 5, 6,
+            7, 8, 9,
         ]
         self.tictactoe.display_board()
         mock_print.assert_called_with(

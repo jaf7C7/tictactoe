@@ -20,10 +20,10 @@ class Tictactoe:
         template = (
             'Board:\n'
             '\n'
-            ' 1 | X | 3 \n'
+            ' {} | {} | {} \n'
             '---+---+---\n'
-            ' O | 5 | 6 \n'
+            ' {} | {} | {} \n'
             '---+---+---\n'
-            ' 7 | 8 | 9 \n'
+            ' {} | {} | {} \n'
         )
-        print(template.format(self.board.positions))
+        print(template.format(*self.board.positions))
