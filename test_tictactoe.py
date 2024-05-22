@@ -47,7 +47,7 @@ class TestTictactoe(TestCase):
         self.tictactoe.display_message('Hello')
         self.assertIn('Hello', stdout.getvalue())
 
-    @patch.object(Player, 'select_position', side_effect=['Blah', None])
+    @patch.object(Player, 'select_position', side_effect=[1, None])
     def test_game_loop_ends_if_player_selection_is_None(
         self, mock_selection, stdout
     ):
