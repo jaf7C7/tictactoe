@@ -26,4 +26,4 @@ class Tictactoe:
             '---+---+---\n'
             ' {} | {} | {} \n'
         )
-        print(template.format(*self.board.positions))
+        self.display_message(template.format(*self.board.positions))
