@@ -18,8 +18,6 @@ class Tictactoe:
 
     def display_board(self):
         template = (
-            'Board:\n'
-            '\n'
             ' {} | {} | {} \n'
             '---+---+---\n'
             ' {} | {} | {} \n'

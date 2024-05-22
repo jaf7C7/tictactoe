@@ -35,8 +35,6 @@ class TestTictactoe(TestCase):
         ]
         self.tictactoe.display_board()
         self.assertIn(
-            'Board:\n'
-            '\n'
             ' 1 | X | 3 \n'
             '---+---+---\n'
             ' O | 5 | 6 \n'
