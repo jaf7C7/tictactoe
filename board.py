@@ -8,7 +8,7 @@ class Board:
         ]
 
     def place_marker(self, marker, position):
-        self.positions[position - 1] = marker
+        self.positions[int(position) - 1] = marker
 
     def winning_marker(self):
         marker = None
