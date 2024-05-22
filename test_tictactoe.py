@@ -25,11 +25,6 @@ class TestTictactoe(TestCase):
     def test_has_a_game_board(self):
         self.assertTrue(isinstance(self.tictactoe.board, Board))
 
-    @patch.object(Player, 'select_position', side_effect=['Blah', None])
-    def test_game_loop_ends_if_player_selection_is_None(self, mock_selection):
-        self.tictactoe.play()
-        self.assertEqual(2, mock_selection.call_count)
-
     @patch('tictactoe.print')
     def test_display_board(self, mock_print):
         self.tictactoe.board.positions = [
@@ -52,3 +47,8 @@ class TestTictactoe(TestCase):
     def test_display_message(self, mock_print):
         self.tictactoe.display_message('Hello')
         mock_print.assert_called_with('Hello')
+
+    @patch.object(Player, 'select_position', side_effect=['Blah', None])
+    def test_game_loop_ends_if_player_selection_is_None(self, mock_selection):
+        self.tictactoe.play()
+        self.assertEqual(2, mock_selection.call_count)
