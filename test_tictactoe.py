@@ -6,12 +6,13 @@ from player import Player
 from board import Board
 
 
+@patch('sys.stdout', new_callable=StringIO)
 class TestTictactoe(TestCase):
 
     def setUp(self):
         self.tictactoe = Tictactoe()
 
-    def test_has_two_players(self):
+    def test_has_two_players(self, stdout):
         self.assertEqual(2, len(self.tictactoe.players))
         self.assertTrue(
             all(
@@ -19,14 +20,13 @@ class TestTictactoe(TestCase):
             )
         )
 
-    def test_player_1_is_human_and_player_2_is_not(self):
+    def test_player_1_is_human_and_player_2_is_not(self, stdout):
         self.assertTrue(self.tictactoe.players[0].is_human)
         self.assertFalse(self.tictactoe.players[1].is_human)
 
-    def test_has_a_game_board(self):
+    def test_has_a_game_board(self, stdout):
         self.assertTrue(isinstance(self.tictactoe.board, Board))
 
-    @patch('sys.stdout', new_callable=StringIO)
     def test_display_board(self, stdout):
         self.tictactoe.board.positions = [
             1,'X', 3,
@@ -45,12 +45,13 @@ class TestTictactoe(TestCase):
             stdout.getvalue()
         )
 
-    @patch('sys.stdout', new_callable=StringIO)
     def test_display_message(self, stdout):
         self.tictactoe.display_message('Hello')
         self.assertIn('Hello', stdout.getvalue())
 
     @patch.object(Player, 'select_position', side_effect=['Blah', None])
-    def test_game_loop_ends_if_player_selection_is_None(self, mock_selection):
+    def test_game_loop_ends_if_player_selection_is_None(
+        self, mock_selection, stdout
+    ):
         self.tictactoe.play()
         self.assertEqual(2, mock_selection.call_count)
