@@ -13,6 +13,9 @@ class Tictactoe:
             if self.players[0].select_position() is None:
                 break
 
+    def display_message(self, message):
+        print(message)
+
     def display_board(self):
         template = (
             'Board:\n'

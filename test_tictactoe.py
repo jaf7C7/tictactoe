@@ -47,3 +47,8 @@ class TestTictactoe(TestCase):
             '---+---+---\n'
             ' 7 | 8 | 9 \n'
         )
+
+    @patch('tictactoe.print')
+    def test_display_message(self, mock_print):
+        self.tictactoe.display_message('Hello')
+        mock_print.assert_called_with('Hello')
