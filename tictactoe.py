@@ -20,7 +20,12 @@ class Tictactoe:
                     return
                 if not player.is_human:
                     self.display_message(f"The computer selected `{position}'")
-                self.board.place_marker(player.marker, position)
+                try:
+                    self.board.place_marker(player.marker, position)
+                except Exception:
+                    self.display_message(
+                        'Invalid selection, not placing marker.'
+                    )
                 self.display_board()
                 if self.board.winning_marker() is not None:
                     self.display_message('You win!')
