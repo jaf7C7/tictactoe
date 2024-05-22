@@ -1,3 +1,4 @@
+from io import StringIO
 from unittest import TestCase
 from unittest.mock import patch
 from tictactoe import Tictactoe
@@ -25,28 +26,29 @@ class TestTictactoe(TestCase):
     def test_has_a_game_board(self):
         self.assertTrue(isinstance(self.tictactoe.board, Board))
 
-    @patch('tictactoe.print')
-    def test_display_board(self, mock_print):
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_display_board(self, stdout):
         self.tictactoe.board.positions = [
             1,'X', 3,
             'O', 5, 6,
             7, 8, 9,
         ]
         self.tictactoe.display_board()
-        mock_print.assert_called_with(
+        self.assertIn(
             'Board:\n'
             '\n'
             ' 1 | X | 3 \n'
             '---+---+---\n'
             ' O | 5 | 6 \n'
             '---+---+---\n'
-            ' 7 | 8 | 9 \n'
+            ' 7 | 8 | 9 \n',
+            stdout.getvalue()
         )
 
-    @patch('tictactoe.print')
-    def test_display_message(self, mock_print):
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_display_message(self, stdout):
         self.tictactoe.display_message('Hello')
-        mock_print.assert_called_with('Hello')
+        self.assertIn('Hello', stdout.getvalue())
 
     @patch.object(Player, 'select_position', side_effect=['Blah', None])
     def test_game_loop_ends_if_player_selection_is_None(self, mock_selection):
