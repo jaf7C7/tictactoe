@@ -29,3 +29,21 @@ class TestTictactoe(TestCase):
     def test_game_loop_ends_if_player_selection_is_None(self, mock_selection):
         self.tictactoe.play()
         self.assertEqual(2, mock_selection.call_count)
+
+    @patch('tictactoe.print')
+    def test_display_board(self, mock_print):
+        self.tictactoe.board.positions = [
+            None,'X', None,
+            'O', None, None,
+            None, None, None,
+        ]
+        self.tictactoe.display_board()
+        mock_print.assert_called_with(
+            'Board:\n'
+            '\n'
+            ' 1 | X | 3 \n'
+            '---+---+---\n'
+            ' O | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n'
+        )
