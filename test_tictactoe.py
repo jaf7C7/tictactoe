@@ -12,3 +12,9 @@ class TestTictactoe(TestCase):
             hasattr(self.tictactoe, 'player')
             and self.tictactoe.player.is_human
         )
+
+    def test_has_a_computer_player(self):
+        self.assertTrue(
+            hasattr(self.tictactoe, 'computer')
+            and not self.tictactoe.computer.is_human
+        )
