@@ -93,6 +93,7 @@ Properties:
   `board`: The game board.
 Methods:
   `display(message)`: Display `message` to the user.
-  `play()`: In a loop, calls `play_round()` until `board.winning_marker()` is not None.
+  `game_over()`: Returns True if `board.winning_marker()` is not None or `board.is_full()` returns True, else False.
+  `play()`: In a loop, calls `play_round()` until `game_over()` returns True.
   `play_round()`: For each player, calls `play_turn(player)`, and displays the board.
   `play_turn(player)`: calls `board.place_marker(player.marker, player.select_position())` and handles any errors.
