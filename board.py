@@ -7,6 +7,16 @@ class Board:
             7, 8, 9,
         ]
 
+    def __str__(self):
+        template = (
+            ' {} | {} | {} \n'
+            '---+---+---\n'
+            ' {} | {} | {} \n'
+            '---+---+---\n'
+            ' {} | {} | {} \n'
+        )
+        return template.format(*self.positions)
+
     def place_marker(self, marker, position):
         self.positions[int(position) - 1] = marker
 

@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import patch
 from board import Board
 
 
@@ -85,3 +86,19 @@ class TestBoard(TestCase):
             'O', 'O', 'X',
         ]
         self.assertFalse(self.board.is_full())
+
+
+    def test_stringify(self):
+        self.board.positions = [
+            1,'X', 3,
+            'O', 5, 6,
+            7, 8, 9,
+        ]
+        self.assertEqual(
+            ' 1 | X | 3 \n'
+            '---+---+---\n'
+            ' O | 5 | 6 \n'
+            '---+---+---\n'
+            ' 7 | 8 | 9 \n',
+            str(self.board)
+        )
