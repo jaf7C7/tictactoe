@@ -88,9 +88,11 @@ Methods:
 
 Class: `Tictactoe`
 Properties:
-  `players`: A list of Player objects.
+  `player`: The human player
+  `computer`: The computer player
   `board`: The game board.
 Methods:
-  `play()`: In a loop, gets a selection from each player, updates the board and checks for a winner.
-  `display_message(message)`: Display `message` to the user.
-  `display_board()`: Displays the game board.
+  `display(message)`: Display `message` to the user.
+  `play()`: In a loop, calls `play_round()` until `board.winning_marker()` is not None.
+  `play_round()`: For each player, calls `play_turn(player)`, and displays the board.
+  `play_turn(player)`: calls `board.place_marker(player.marker, player.select_position())` and handles any errors.
