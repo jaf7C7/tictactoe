@@ -11,3 +11,7 @@ class Tictactoe:
 
     def display(self, text):
         print(text)
+
+    def play(self):
+        while not self.game_over():
+            self.play_round()

@@ -1,6 +1,6 @@
 from io import StringIO
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from tictactoe import Tictactoe
 
 
@@ -28,3 +28,9 @@ class TestTictactoe(TestCase):
     def test_can_display_messages_to_user(self, stdout):
         self.tictactoe.display('Hello, World!')
         self.assertIn('Hello, World!', stdout.getvalue())
+
+    def test_play_plays_rounds_until_a_winning_marker_is_found(self):
+        self.tictactoe.play_round = Mock()
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.play()
+        self.assertEqual(1, self.tictactoe.play_round.call_count)
