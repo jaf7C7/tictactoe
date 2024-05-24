@@ -8,3 +8,6 @@ class Tictactoe:
         self.player = Player(is_human=True)
         self.computer = Player(is_human=False)
         self.board = Board()
+
+    def display(self, text):
+        print(text)

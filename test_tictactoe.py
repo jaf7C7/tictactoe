@@ -1,4 +1,6 @@
+from io import StringIO
 from unittest import TestCase
+from unittest.mock import patch
 from tictactoe import Tictactoe
 
 
@@ -21,3 +23,8 @@ class TestTictactoe(TestCase):
 
     def test_has_a_game_board(self):
         self.assertTrue(hasattr(self.tictactoe, 'board'))
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_can_display_messages_to_user(self, stdout):
+        self.tictactoe.display('Hello, World!')
+        self.assertIn('Hello, World!', stdout.getvalue())
