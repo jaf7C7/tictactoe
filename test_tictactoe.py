@@ -35,7 +35,9 @@ class TestTictactoe(TestCase):
         self.tictactoe.play()
         self.assertEqual(1, self.tictactoe.play_round.call_count)
 
-    def test_game_over_returns_true_if_the_board_is_full_or_a_winner_is_found(self):
+    def test_game_over_returns_true_if_the_board_is_full_or_a_winner_is_found(
+        self
+    ):
         for winning_marker, is_full, game_over in (
             ('X', True, True),
             ('X', False, True),
