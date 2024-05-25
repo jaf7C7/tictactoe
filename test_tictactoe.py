@@ -51,3 +51,8 @@ class TestTictactoe(TestCase):
             self.tictactoe.player_1.select_position.called
             and self.tictactoe.player_2.select_position.called
         )
+
+    def test_play_calls_place_marker_for_each_player(self):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.play()
+        self.assertEqual(2, self.tictactoe.board.place_marker.call_count)
