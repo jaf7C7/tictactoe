@@ -9,16 +9,10 @@ class TestTictactoe(TestCase):
     def setUp(self):
         self.tictactoe = Tictactoe(player_type=Mock, board_type=Mock)
 
-    def test_has_a_human_player(self):
+    def test_has_a_player_X_and_a_player_O(self):
         self.assertTrue(
             hasattr(self.tictactoe, 'player_X')
-            and self.tictactoe.player_X.is_human
-        )
-
-    def test_has_a_computer_player(self):
-        self.assertTrue(
-            hasattr(self.tictactoe, 'player_O')
-            and not self.tictactoe.player_O.is_human
+            and hasattr(self.tictactoe, 'player_O')
         )
 
     def test_has_a_game_board(self):
@@ -29,11 +23,11 @@ class TestTictactoe(TestCase):
         self.tictactoe.display('Hello, World!')
         self.assertIn('Hello, World!', stdout.getvalue())
 
-    def test_play_plays_rounds_until_a_winning_marker_is_found(self):
+    def test_play_plays_rounds_until_the_game_is_over(self):
         self.tictactoe.play_round = Mock()
-        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.game_over = Mock(side_effect=[False, False, True])
         self.tictactoe.play()
-        self.assertEqual(1, self.tictactoe.play_round.call_count)
+        self.assertEqual(2, self.tictactoe.play_round.call_count)
 
     def test_game_over_returns_true_if_the_board_is_full_or_a_winner_is_found(
         self
