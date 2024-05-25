@@ -14,7 +14,8 @@ class Tictactoe:
 
     def play(self):
         while not self.game_over():
-            self.play_round()
+            for player in self.player_X, self.player_O:
+                player.select_position()
 
     def game_over(self):
         return self.board.winning_marker() is not None or self.board.is_full()

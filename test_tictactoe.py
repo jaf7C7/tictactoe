@@ -23,11 +23,11 @@ class TestTictactoe(TestCase):
         self.tictactoe.display('Hello, World!')
         self.assertIn('Hello, World!', stdout.getvalue())
 
-    def test_play_plays_rounds_until_the_game_is_over(self):
+    def test_play_loops_until_the_game_is_over(self):
         self.tictactoe.play_round = Mock()
         self.tictactoe.game_over = Mock(side_effect=[False, False, True])
         self.tictactoe.play()
-        self.assertEqual(2, self.tictactoe.play_round.call_count)
+        self.assertEqual(3, self.tictactoe.game_over.call_count)
 
     def test_game_over_returns_true_if_the_board_is_full_or_a_winner_is_found(
         self
@@ -43,3 +43,11 @@ class TestTictactoe(TestCase):
                 is_full=Mock(return_value=is_full)
             )
             self.assertTrue(self.tictactoe.game_over() is game_over)
+
+    def test_play_calls_select_position_on_each_player(self):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.play()
+        self.assertTrue(
+            self.tictactoe.player_X.select_position.called
+            and self.tictactoe.player_O.select_position.called
+        )
