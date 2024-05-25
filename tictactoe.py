@@ -4,10 +4,10 @@ from board import Board
 
 class Tictactoe:
 
-    def __init__(self):
-        self.player = Player(is_human=True)
-        self.computer = Player(is_human=False)
-        self.board = Board()
+    def __init__(self, player_type=Player, board_type=Board):
+        self.player_X = player_type(is_human=True)
+        self.player_O = player_type(is_human=False)
+        self.board = board_type()
 
     def display(self, text):
         print(text)
