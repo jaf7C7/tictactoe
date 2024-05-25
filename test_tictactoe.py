@@ -9,10 +9,10 @@ class TestTictactoe(TestCase):
     def setUp(self):
         self.tictactoe = Tictactoe(player_type=Mock, board_type=Mock)
 
-    def test_has_a_player_X_and_a_player_O(self):
+    def test_has_two_players(self):
         self.assertTrue(
-            hasattr(self.tictactoe, 'player_X')
-            and hasattr(self.tictactoe, 'player_O')
+            hasattr(self.tictactoe, 'player_1')
+            and hasattr(self.tictactoe, 'player_2')
         )
 
     def test_has_a_game_board(self):
@@ -48,6 +48,6 @@ class TestTictactoe(TestCase):
         self.tictactoe.game_over = Mock(side_effect=[False, True])
         self.tictactoe.play()
         self.assertTrue(
-            self.tictactoe.player_X.select_position.called
-            and self.tictactoe.player_O.select_position.called
+            self.tictactoe.player_1.select_position.called
+            and self.tictactoe.player_2.select_position.called
         )

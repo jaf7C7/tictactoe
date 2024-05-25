@@ -5,8 +5,8 @@ from board import Board
 class Tictactoe:
 
     def __init__(self, player_type=Player, board_type=Board):
-        self.player_X = player_type(is_human=True)
-        self.player_O = player_type(is_human=False)
+        self.player_1 = player_type(is_human=True)
+        self.player_2 = player_type(is_human=False)
         self.board = board_type()
 
     def display(self, text):
@@ -14,7 +14,7 @@ class Tictactoe:
 
     def play(self):
         while not self.game_over():
-            for player in self.player_X, self.player_O:
+            for player in self.player_1, self.player_2:
                 player.select_position()
 
     def game_over(self):
