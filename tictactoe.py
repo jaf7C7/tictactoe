@@ -15,3 +15,6 @@ class Tictactoe:
     def play(self):
         while not self.game_over():
             self.play_round()
+
+    def game_over(self):
+        return self.board.winning_marker() is not None or self.board.is_full()

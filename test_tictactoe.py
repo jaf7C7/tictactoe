@@ -8,6 +8,7 @@ class TestTictactoe(TestCase):
 
     def setUp(self):
         self.tictactoe = Tictactoe()
+        self.tictactoe.board = Mock()
 
     def test_has_a_human_player(self):
         self.assertTrue(
@@ -34,3 +35,16 @@ class TestTictactoe(TestCase):
         self.tictactoe.game_over = Mock(side_effect=[False, True])
         self.tictactoe.play()
         self.assertEqual(1, self.tictactoe.play_round.call_count)
+
+    def test_game_over_returns_true_if_the_board_is_full_or_a_winner_is_found(self):
+        for winning_marker, is_full, game_over in (
+            ('X', True, True),
+            ('X', False, True),
+            (None, True, True),
+            (None, False, False),
+        ):
+            self.tictactoe.board.configure_mock(
+                winning_marker=Mock(return_value=winning_marker),
+                is_full=Mock(return_value=is_full)
+            )
+            self.assertTrue(self.tictactoe.game_over() is game_over)
