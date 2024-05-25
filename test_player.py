@@ -8,22 +8,22 @@ class TestPlayer(TestCase):
     def test_is_human(self):
         human = Player(is_human=True)
         computer = Player(is_human=False)
-        self.assertTrue(human.is_human)
-        self.assertFalse(computer.is_human)
+        self.assertTrue(human.is_human and not computer.is_human)
 
     def test_markers(self):
         human = Player(is_human=True)
         computer = Player(is_human=False)
-        self.assertEqual('X', human.marker)
-        self.assertEqual('O', computer.marker)
+        self.assertTrue(human.marker == 'X' and computer.marker == 'O')
 
     @patch('player.input')
     def test_select_position_if_human(self, mock_input):
         human = Player(is_human=True)
         human.select_position()
-        mock_input.assert_called()
+        self.assertTrue(mock_input.called)
 
     def test_select_position_if_not_human(self):
         computer = Player(is_human=False)
+        positions = []
         for i in range(10):
-            self.assertTrue(1 <= computer.select_position() <= 9)
+            positions.append(computer.select_position())
+        self.assertTrue(all(1 <= p <= 9 for p in positions))
