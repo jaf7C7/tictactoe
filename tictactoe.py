@@ -24,7 +24,11 @@ class Tictactoe:
                     )
                 except Exception:
                     self.display('Position not available, cannot place marker.')
-        self.display(f'The winner is... `{self.winner}`!')
+        self.display(
+            f'The winner is... `{self.winner}`!'
+            if self.winner
+            else "It's a tie!"
+        )
 
     def game_over(self):
         self.winner = self.board.winning_marker()

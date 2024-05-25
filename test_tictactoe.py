@@ -70,10 +70,14 @@ class TestTictactoe(TestCase):
             stdout.getvalue()
         )
 
-    def test_play_displays_the_winner_if_winner_is_not_none(
+    def test_play_displays_the_result_when_the_game_is_over(
         self, stdout
     ):
-        self.tictactoe.game_over = Mock(side_effect=[True])
-        self.tictactoe.winner = 'X'
-        self.tictactoe.play()
-        self.assertIn('The winner is... `X`!', stdout.getvalue())
+        self.tictactoe.game_over = Mock(return_value=True)
+        for winner, msg in (
+            ('X', 'The winner is... `X`!'),
+            (None, "It's a tie!")
+        ):
+            self.tictactoe.winner = winner
+            self.tictactoe.play()
+            self.assertIn(msg, stdout.getvalue())
