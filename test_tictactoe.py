@@ -56,3 +56,15 @@ class TestTictactoe(TestCase):
         self.tictactoe.game_over = Mock(side_effect=[False, True])
         self.tictactoe.play()
         self.assertEqual(2, self.tictactoe.board.place_marker.call_count)
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_play_displays_a_message_if_the_marker_cannot_be_placed(
+        self, stdout
+    ):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.board.place_marker.configure_mock(side_effect=Exception())
+        self.tictactoe.play()
+        self.assertIn(
+            'Position not available, cannot place marker.',
+            stdout.getvalue()
+        )

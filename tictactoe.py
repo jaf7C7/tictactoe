@@ -1,3 +1,4 @@
+
 from player import Player
 from board import Board
 
@@ -15,10 +16,13 @@ class Tictactoe:
     def play(self):
         while not self.game_over():
             for player in self.player_1, self.player_2:
-                self.board.place_marker(
-                    marker=player.marker,
-                    position=player.select_position()
-                )
+                try:
+                    self.board.place_marker(
+                        marker=player.marker,
+                        position=player.select_position()
+                    )
+                except Exception:
+                    self.display('Position not available, cannot place marker.')
 
     def game_over(self):
         return self.board.winning_marker() is not None or self.board.is_full()
