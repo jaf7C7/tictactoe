@@ -9,6 +9,7 @@ class Tictactoe:
         self.player_1 = player_type(is_human=True)
         self.player_2 = player_type(is_human=False)
         self.board = board_type()
+        self.winner = None
 
     def display(self, text):
         print(text)
@@ -23,6 +24,8 @@ class Tictactoe:
                     )
                 except Exception:
                     self.display('Position not available, cannot place marker.')
+        self.display(f'The winner is... `{self.winner}`!')
 
     def game_over(self):
-        return self.board.winning_marker() is not None or self.board.is_full()
+        self.winner = self.board.winning_marker()
+        return self.winner is not None or self.board.is_full()
