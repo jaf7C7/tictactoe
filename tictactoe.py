@@ -16,6 +16,8 @@ class Tictactoe:
     def play(self):
         while not self.game_over():
             for player in self.player_X, self.player_O:
+                if player.is_human:
+                    self.display('Select an available position: ')
                 try:
                     self.board.place_marker(
                         marker=player.marker,

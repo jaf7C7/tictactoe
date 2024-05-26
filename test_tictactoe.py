@@ -81,3 +81,11 @@ class TestTictactoe(TestCase):
             self.tictactoe.winner = winner
             self.tictactoe.play()
             self.assertIn(msg, stdout.getvalue())
+
+    def test_play_displays_a_prompt_for_user_input_if_the_player_is_human(
+        self, stdout
+    ):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.player_X.is_human = True
+        self.tictactoe.play()
+        self.assertIn('Select an available position: ', stdout.getvalue())
