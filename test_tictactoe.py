@@ -94,3 +94,8 @@ class TestTictactoe(TestCase):
         self.tictactoe.game_over = Mock(side_effect=[False, True])
         self.tictactoe.play()
         self.assertEqual(2, stdout.getvalue().count(str(self.tictactoe.board)))
+
+    def test_play_displays_a_message_for_each_computer_selection(self, stdout):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.play()
+        self.assertIn('The computer selected position ', stdout.getvalue())

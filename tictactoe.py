@@ -19,11 +19,11 @@ class Tictactoe:
                 self.display(self.board)
                 if player.is_human:
                     self.display('Select an available position: ')
+                position = player.select_position()
+                if not player.is_human:
+                    self.display(f'The computer selected position {position}')
                 try:
-                    self.board.place_marker(
-                        marker=player.marker,
-                        position=player.select_position()
-                    )
+                    self.board.place_marker(player.marker, position)
                 except Exception:
                     self.display('Position not available, cannot place marker.')
         self.display(
