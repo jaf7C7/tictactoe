@@ -95,6 +95,7 @@ class TestBoard(TestCase):
             7, 8, 9,
         ]
         self.assertEqual(
+            '\n'
             ' 1 | X | 3 \n'
             '---+---+---\n'
             ' O | 5 | 6 \n'

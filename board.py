@@ -9,6 +9,7 @@ class Board:
 
     def __str__(self):
         template = (
+            '\n'
             ' {} | {} | {} \n'
             '---+---+---\n'
             ' {} | {} | {} \n'
