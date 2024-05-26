@@ -87,6 +87,10 @@ class TestBoard(TestCase):
         ]
         self.assertFalse(self.board.is_full())
 
+    def test_place_marker_fails_if_position_already_has_a_marker(self):
+        self.board.place_marker('O', 1)
+        with self.assertRaises(Exception):
+            self.board.place_marker('X', 1)
 
     def test_stringify(self):
         self.board.positions = [

@@ -19,6 +19,9 @@ class Board:
         return template.format(*self.positions)
 
     def place_marker(self, marker, position):
+        index = int(position) - 1
+        if self.positions[index] not in range(1, 10):
+            raise ValueError
         self.positions[int(position) - 1] = marker
 
     def winning_marker(self):
