@@ -14,7 +14,10 @@ class Tictactoe:
         print(text)
 
     def play(self):
-        self.display('Welcome to Tic-Tac-Toe!')
+        self.display(
+            'Welcome to Tic-Tac-Toe!\n'
+            '=======================\n'
+        )
         while not self.game_over():
             for player in self.player_X, self.player_O:
                 self.display(self.board)
