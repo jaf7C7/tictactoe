@@ -99,3 +99,8 @@ class TestTictactoe(TestCase):
         self.tictactoe.game_over = Mock(side_effect=[False, True])
         self.tictactoe.play()
         self.assertIn('The computer selected position ', stdout.getvalue())
+
+    def test_play_displays_a_welcome_message(self, stdout):
+        self.tictactoe.game_over = Mock(side_effect=[True])
+        self.tictactoe.play()
+        self.assertIn('Welcome to Tic-Tac-Toe!', stdout.getvalue())
