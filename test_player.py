@@ -11,9 +11,9 @@ class TestPlayer(TestCase):
         self.assertTrue(human.is_human and not computer.is_human)
 
     def test_markers(self):
-        human = Player(is_human=True)
-        computer = Player(is_human=False)
-        self.assertTrue(human.marker == 'X' and computer.marker == 'O')
+        X = Player(marker='X')
+        O = Player(marker='O')
+        self.assertTrue(X.marker == 'X' and O.marker == 'O')
 
     @patch('player.input')
     def test_select_position_if_human(self, mock_input):
