@@ -89,3 +89,8 @@ class TestTictactoe(TestCase):
         self.tictactoe.player_X.is_human = True
         self.tictactoe.play()
         self.assertIn('Select an available position: ', stdout.getvalue())
+
+    def test_play_displays_the_board_once_per_player_turn(self, stdout):
+        self.tictactoe.game_over = Mock(side_effect=[False, True])
+        self.tictactoe.play()
+        self.assertEqual(2, stdout.getvalue().count(str(self.tictactoe.board)))
