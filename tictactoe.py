@@ -31,9 +31,9 @@ class Tictactoe:
                 except Exception:
                     self.display('Position not available, cannot place marker.')
         self.display(
-            f'The winner is... `{self.winner}`!'
+            f'\n**** `{self.winner}` wins! ****\n'
             if self.winner
-            else "It's a tie!"
+            else "\n**** It's a tie! ****\n"
         )
 
     def game_over(self):

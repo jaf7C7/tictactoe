@@ -75,8 +75,8 @@ class TestTictactoe(TestCase):
     ):
         self.tictactoe.game_over = Mock(return_value=True)
         for winner, msg in (
-            ('X', 'The winner is... `X`!'),
-            (None, "It's a tie!")
+            ('X', '\n**** `X` wins! ****\n'),
+            (None, "\n**** It's a tie! ****\n")
         ):
             self.tictactoe.winner = winner
             self.tictactoe.play()
