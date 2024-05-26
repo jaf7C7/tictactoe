@@ -5,8 +5,8 @@ from board import Board
 class Tictactoe:
 
     def __init__(self, player_type=Player, board_type=Board):
-        self.player_1 = player_type(is_human=True)
-        self.player_2 = player_type(is_human=False)
+        self.player_X = player_type(is_human=True, marker='X')
+        self.player_O = player_type(is_human=False, marker='O')
         self.board = board_type()
         self.winner = None
 
@@ -15,7 +15,7 @@ class Tictactoe:
 
     def play(self):
         while not self.game_over():
-            for player in self.player_1, self.player_2:
+            for player in self.player_X, self.player_O:
                 try:
                     self.board.place_marker(
                         marker=player.marker,
