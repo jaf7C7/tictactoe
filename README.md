@@ -3,6 +3,11 @@
 This game is a very simple version of tic-tac-toe which runs in the terminal, but the processes used to design and create it are the main focus.  The goal of this exercise was to practice solving problems using test-driven development (TDD) and an object-oriented design (OOD).
 
 
+## Try it out
+
+Just clone this repo and run the `play.py` script.
+
+
 ## Problem description:
 
 * The game board is an empty 3x3 grid.
