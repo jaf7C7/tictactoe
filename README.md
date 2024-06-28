@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-This game is a very simple version of tic-tac-toe which runs in the terminal, but the processes used to design and create it are the main focus.  The goal of this exercise was to practice solving problems using test-driven development (TDD) and an object-oriented design (OOD).
+This game is a very simple version of tic-tac-toe which runs in the terminal, but the processes used to design and create it are the main focus.  The goal of this exercise was to practice solving problems using test-driven development (TDD) and object-oriented design (OOD).
 
 
 ## Try it out
